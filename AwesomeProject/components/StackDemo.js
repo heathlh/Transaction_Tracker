@@ -5,15 +5,18 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import CountChange from './CountChange';
 import KeyPad from './KeyPad';
 
+// import toDoList
+import ToDoList from './ToDoList'; 
+
 const Stack = createNativeStackNavigator();
 
 const HomeScreen = ({navigation}) => {
     return (
      <View style={{ flexDirection:'row', justifyContent:'space-evenly'}}>
             <Button
-                title="Go to Tim's profile"
+                title="Go to Hang's profile"
                 onPress={() =>
-                navigation.navigate('Profile', {name: 'Tim'})
+                navigation.navigate('Profile', {name: 'THang'})
                 }
             />
             <Button
@@ -28,6 +31,15 @@ const HomeScreen = ({navigation}) => {
                 navigation.navigate('KeyPad')
                 }
             />
+
+            <Button
+                title= "ToDo List"
+                onPress = {()=>
+                navigation.navigate('ToDoList')
+                }
+            />
+
+
       </View>
     );
   };
@@ -46,6 +58,9 @@ const MyStack = () => {
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="CountChange" component={CountChange} />
         <Stack.Screen name="KeyPad" component ={KeyPad} />
+
+        <Stack.Screen name="ToDoList" component ={ToDoList} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
