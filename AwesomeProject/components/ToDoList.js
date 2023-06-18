@@ -1,23 +1,52 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TextInput, Button, StyleSheet, ScrollView, Text } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import ToDoItem from './ToDoItem';
 
 function ToDoList() {
-    const [tasks, setTasks] = useState(["Task 1", "Task 2"]);
+    const [tasks, setTasks] = useState([]);
     const [newTask, setNewTask] = useState("");
+
+    useEffect(() => {
+        loadTasksFromStorage();
+    }, []);
+
+    useEffect(() => {
+        saveTasksToStorage();
+    }, [tasks]);
+
+    const loadTasksFromStorage = async () => {
+        try {
+            const storedTasks = await AsyncStorage.getItem('@tasks');
+            if(storedTasks !== null) {
+                setTasks(JSON.parse(storedTasks));
+            }
+        } catch(e) {
+            console.error(e);
+        }
+    };
+
+    const saveTasksToStorage = async () => {
+        try {
+            await AsyncStorage.setItem('@tasks', JSON.stringify(tasks));
+        } catch(e) {
+            console.error(e);
+        }
+    };
 
     const handleDelete = (index) => {
         setTasks(tasks.filter((_, i) => i !== index));
     }
 
     const handleAdd = () => {
-        setTasks([...tasks, newTask]);
-        setNewTask("");
+        if (newTask.length > 0) {
+            setTasks([...tasks, newTask]);
+            setNewTask("");
+        }
     }
 
     return (
         <View style={styles.container}>
-
             <Text style={styles.instructions}>
                 Enter the name of your new task in the input box at the bottom of the screen
             </Text>

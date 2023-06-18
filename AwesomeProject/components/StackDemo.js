@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import CountChange from './CountChange';
 import KeyPad from './KeyPad';
+import AccountingSystem from './AccountingSystem';
 
 // import toDoList
 import ToDoList from './ToDoList'; 
@@ -40,6 +41,14 @@ const HomeScreen = ({navigation}) => {
             />
 
 
+            <Button
+                title= "Accounting System"
+                onPress = {()=>
+                navigation.navigate('AccountingSystem')
+                }
+            />
+
+
       </View>
     );
   };
@@ -48,22 +57,39 @@ const HomeScreen = ({navigation}) => {
     return <Text>This is {route.params.name}'s profile</Text>;
   };
 
-const MyStack = () => {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen}
-          options={{title: 'Welcome'}}
-        />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
-        <Stack.Screen name="CountChange" component={CountChange} />
-        <Stack.Screen name="KeyPad" component ={KeyPad} />
-
-        <Stack.Screen name="ToDoList" component ={ToDoList} />
-        
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-};
+  const MyStack = () => {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen 
+            name="Home" 
+            component={HomeScreen}
+            options={{title: 'Welcome'}}
+          />
+          <Stack.Screen 
+            name="Profile" 
+            component={ProfileScreen} 
+          />
+          <Stack.Screen 
+            name="CountChange" 
+            component={CountChange} 
+          />
+          <Stack.Screen 
+            name="KeyPad" 
+            component ={KeyPad} 
+          />
+          <Stack.Screen 
+            name="ToDoList" 
+            component ={ToDoList} 
+          />
+          <Stack.Screen 
+            name="AccountingSystem" 
+            component ={AccountingSystem} 
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  };
+  
 
 export default MyStack;
