@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, Button, StyleSheet, ScrollView, Text } from 'react-native';
+import { View, TextInput, Button, StyleSheet, ScrollView, Text, SafeAreaView} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ToDoItem from './ToDoItem';
 
@@ -46,7 +46,7 @@ function ToDoList() {
     }
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <Text style={styles.instructions}>
                 Enter the name of your new task in the input box at the bottom of the screen
             </Text>
@@ -76,7 +76,7 @@ function ToDoList() {
                 />
                 <Button title="Add Task" onPress={handleAdd} />
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
 
