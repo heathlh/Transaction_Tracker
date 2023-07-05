@@ -16,7 +16,7 @@ function ToDoItem({ task, handleDelete }) {
             quality: 1,
         });
 
-        if (!result.canceled) {
+        if (!result.cancelled) {
             setSelectedImage(result.assets[0].uri);
         } else {
             alert('You did not select any image.');
@@ -30,7 +30,7 @@ function ToDoItem({ task, handleDelete }) {
     return (
         <SafeAreaView style={styles.itemContainer}>
             <View style={styles.textImageRow}>
-                <Text style={completed ? styles.completedTask : null}>{task}</Text>
+                <Text style={[styles.task, completed ? styles.completedTask : null]}>{task}</Text>
                 {selectedImage && (
                     <Image
                         source={{ uri: selectedImage }}
@@ -61,6 +61,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+    },
+    task: {
+        marginRight: 20, // This is new. Adjust this value as needed.
     },
     buttonsContainer: {
         flexDirection: 'row',

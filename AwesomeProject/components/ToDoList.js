@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, Button, StyleSheet, ScrollView, Text, SafeAreaView} from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet, ScrollView, Text, SafeAreaView, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ToDoItem from './ToDoItem';
 
@@ -47,26 +47,14 @@ function ToDoList() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.instructions}>
-                Enter the name of your new task in the input box at the bottom of the screen
-            </Text>
-
-            <Text style={styles.instructions}>
-                then press "Add Task" to add it to the list. 
-            </Text>
-
-            <Text style={styles.instructions}>
-                Press the "Completed" button to mark a task as completed
-            </Text>
-            
-            <Text style={styles.instructions}>
-                Press "Delete" to remove a task from the list.
-            </Text>
-            <ScrollView>
-                {tasks.map((task, index) => 
-                    <ToDoItem key={index} task={task} handleDelete={() => handleDelete(index)} />
-                )}
-            </ScrollView>
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}>ToDo List</Text>
+            </View>
+            <FlatList
+                data={tasks}
+                renderItem={({item, index}) => <ToDoItem key={index} task={item} handleDelete={() => handleDelete(index)} />}
+                keyExtractor={(item, index) => index.toString()}
+            />
             <View style={styles.inputContainer}>
                 <TextInput
                     style={styles.input}
@@ -74,7 +62,9 @@ function ToDoList() {
                     onChangeText={setNewTask}
                     placeholder="New task"
                 />
-                <Button title="Add Task" onPress={handleAdd} />
+                <TouchableOpacity style={styles.addButton} onPress={handleAdd}>
+                    <Text style={styles.addButtonText}>+</Text>
+                </TouchableOpacity>
             </View>
         </SafeAreaView>
     );
@@ -83,12 +73,17 @@ function ToDoList() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 10,
-        paddingHorizontal: 10,
+        backgroundColor: '#f8f8f8',
     },
-    instructions: {
-        fontSize: 16,
-        marginBottom: 10,
+    header: {
+        paddingTop: 60,
+        paddingBottom: 20,
+        backgroundColor: '#736AB7',
+    },
+    headerTitle: {
+        fontSize: 20,
+        color: '#FFFFFF',
+        textAlign: 'center',
     },
     inputContainer: {
         flexDirection: 'row',
@@ -98,11 +93,33 @@ const styles = StyleSheet.create({
         bottom: 0,
         width: '100%',
         padding: 10,
-        backgroundColor: 'white',
+        backgroundColor: '#736AB7',
     },
     input: {
-        width: '80%',
+        flex: 1,
+        height: 40,
+        backgroundColor: '#fff',
+        borderColor: '#ddd',
+        borderWidth: 1,
+        borderRadius: 4,
+        paddingHorizontal: 10,
+    },
+    addButton: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: '#20B2AA',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    addButtonText: {
+        color: '#fff',
+        fontSize: 24,
+        textAlign: 'center',
+        // Added marginTop to shift down the text
+        marginTop: -2
     },
 });
+
 
 export default ToDoList;
