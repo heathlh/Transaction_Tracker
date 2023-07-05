@@ -15,13 +15,14 @@ function ToDoItem({ task, handleDelete }) {
             allowsEditing: true,
             quality: 1,
         });
-
-        if (!result.cancelled) {
+    
+        if (!result.canceled) { // updated from "result.cancelled"
             setSelectedImage(result.assets[0].uri);
         } else {
             alert('You did not select any image.');
         }
     };
+    
 
     const handleDeleteImage = () => {
         setSelectedImage(null);
