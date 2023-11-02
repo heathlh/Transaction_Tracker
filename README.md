@@ -1,2 +1,8 @@
-# COSI153_PROJECT
-Code for final project
+# Transaction Rracker
+
+Project in 2023 Summer
+
+Code for Transaction tracker and other small functions
+
+Mobile App development
+
